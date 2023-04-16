@@ -31,8 +31,9 @@ io_base::io_base(uintptr_t base):
     afrl(base   + 0x20),
     afrh(base   + 0x24),
     brr(base    + 0x28)
-{};
-void io_base::set_mode(pin_t pin, enum io_pin::mode val)
+{}
+
+void io_base::set_mode(pin_t pin, io_attr::mode_t val)
 {
     this->moder.cover(
         static_cast<decltype(lckr)::value_type>(0b11) << pin*2, 
