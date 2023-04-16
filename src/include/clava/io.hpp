@@ -92,7 +92,8 @@ namespace clava
             PD = 0b10,
         };
 
-        io_pin(){};
+
+        io_pin();
 
         /**
          * @brief internally pull the pin up

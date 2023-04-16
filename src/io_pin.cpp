@@ -15,9 +15,14 @@
 
 /* SPDX-License-Identifier: AGPL-3.0-or-later */
 
+#include <limits>
+
 #include <clava/io.hpp>
 
 using namespace clava;
+
+io_pin::io_pin() : group(nullptr), id(std::numeric_limits<decltype(id)>::max()) {}
+
 void io_pin::pull_up()
 {
     this->group->set_pupd(this->id, io_pin::pupd::PU);
