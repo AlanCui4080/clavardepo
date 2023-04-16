@@ -33,36 +33,41 @@ io_base::io_base(uintptr_t base):
     brr(base    + 0x28)
 {}
 
-void io_base::set_mode(pin_t pin, io_attr::mode_t val)
+[[maybe_unused]] void io_base::set_mode(pin_t pin, io_attr::mode_t val)
 {
     this->moder.cover(
         static_cast<decltype(lckr)::value_type>(0b11) << pin*2, 
         static_cast<decltype(lckr)::value_type>(val) << pin*2
         );
 }
-io_attr::mode_t io_base::get_mode(pin_t pin)
+
+[[maybe_unused]] io_attr::mode_t io_base::get_mode(pin_t pin)
 {
     return static_cast<io_attr::mode_t>((this->moder.read() >> pin*2) & 0b1);
 }
-void io_base::set_otype(pin_t pin, io_attr::otype_t val)
+
+[[maybe_unused]] void io_base::set_otype(pin_t pin, io_attr::otype_t val)
 {
     this->otyper.cover(
         static_cast<decltype(lckr)::value_type>(0b1) << pin, 
         static_cast<decltype(lckr)::value_type>(val) << pin
         );
 }
-io_attr::otype_t io_base::get_otype(pin_t pin)
+
+[[maybe_unused]] io_attr::otype_t io_base::get_otype(pin_t pin)
 {
     return static_cast<io_attr::otype_t>((this->otyper.read() >> pin) & 0b11);
 }
-void io_base::set_speed(pin_t pin, io_attr::speed_t val)
+
+[[maybe_unused]] void io_base::set_speed(pin_t pin, io_attr::speed_t val)
 {
     this->speedr.cover(
         static_cast<decltype(lckr)::value_type>(0b11) << pin*2, 
         static_cast<decltype(lckr)::value_type>(val) << pin*2
         );
 }
-io_attr::speed_t io_base::get_speed(pin_t pin)
+
+[[maybe_unused]] io_attr::speed_t io_base::get_speed(pin_t pin)
 {
     return static_cast<io_attr::speed_t>((this->speedr.read() >> pin*2) & 0b11);
 }
@@ -73,7 +78,8 @@ void io_base::set_pupd(pin_t pin, io_attr::pupd_t val)
         static_cast<decltype(lckr)::value_type>(val) << pin*2
         );
 }
-io_attr::pupd_t io_base::get_pupd(pin_t pin)
+
+[[maybe_unused]] io_attr::pupd_t io_base::get_pupd(pin_t pin)
 {
     return static_cast<io_attr::pupd_t>((this->pupdr.read() >> pin*2) & 0b11);
 }
@@ -108,7 +114,8 @@ void io_base::lock(pin_t pin)
     
     this->lckr.read();
 }
-void io_base::lockdown()
+
+[[maybe_unused]] void io_base::lockdown()
 {
     this->lckr.cover(
         (static_cast<decltype(lckr)::value_type>(0b1) << 16)|0xffff, 

@@ -15,15 +15,14 @@
 
 /* SPDX-License-Identifier: AGPL-3.0-or-later */
 
-#include <clava/io.hpp>
 
 [[noreturn]] void _clava_init()
 {
-    while (1);;
+    while (true);
 }
 extern "C"
 {
-    [[noreturn]] void _clava(void)
+[[maybe_unused]] [[noreturn]] void _clava(void)
     {
         _clava_init();
     }

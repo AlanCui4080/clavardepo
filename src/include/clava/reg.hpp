@@ -36,7 +36,7 @@ namespace clava
          * 
          * @param ptr the base of the register
          */
-        reg_base(uintptr_t ptr)
+        explicit reg_base(uintptr_t ptr)
         {
             base = reinterpret_cast<_Type*>(ptr);
         }
@@ -85,7 +85,7 @@ namespace clava
          * 
          * @param val the value to be written in
          */
-        void write(_Type val)
+        [[maybe_unused]] void write(_Type val)
         {
             *this->get_base() = val;
         }

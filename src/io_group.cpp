@@ -25,7 +25,8 @@ io_pin& io_group::operator[](pin_t pin)
 {
     return list[pin];
 }
-io_group::io_group(uintptr_t base) : io_base(base)
+
+[[maybe_unused]] io_group::io_group(uintptr_t base) : io_base(base)
 {
     for (auto& it : list)
     {

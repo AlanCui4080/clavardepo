@@ -23,35 +23,42 @@ using namespace clava;
 
 io_pin::io_pin() : group(nullptr), id(std::numeric_limits<decltype(id)>::max()) {}
 
-void io_pin::pull_up()
+[[maybe_unused]] void io_pin::pull_up()
 {
     this->group->set_pupd(this->id, io_attr::pupd_t::PU);
 }
-void io_pin::pull_down()
+
+[[maybe_unused]] void io_pin::pull_down()
 {
     this->group->set_pupd(this->id, io_attr::pupd_t::PD);
 }
-void io_pin::make_float()
+
+[[maybe_unused]] void io_pin::make_float()
 {
     this->group->set_pupd(this->id, io_attr::pupd_t::NONE);
 }
-bool io_pin::read()
+
+[[maybe_unused]] bool io_pin::read()
 {
     return this->group->read(this->id);
 }
-void io_pin::write(bool val)
+
+[[maybe_unused]] void io_pin::write(bool val)
 {
     this->group->write(this->id, val);
 }
-void io_pin::set()
+
+[[maybe_unused]] void io_pin::set()
 {
     this->group->set(this->id);
 }
-void io_pin::reset()
+
+[[maybe_unused]] void io_pin::reset()
 {
     this->group->reset(this->id);
 }
-void io_pin::lock()
+
+[[maybe_unused]] void io_pin::lock()
 {
     this->group->lock(this->id);
 }

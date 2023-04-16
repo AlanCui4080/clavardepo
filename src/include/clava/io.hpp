@@ -44,10 +44,10 @@ namespace clava
 		 */
 		typedef enum mode
 		{
-			IN = 0b00,
-			OUT = 0b01,
-			AF = 0b10,
-			IO = 0b11
+			IN [[maybe_unused]] = 0b00,
+			OUT [[maybe_unused]] = 0b01,
+			AF [[maybe_unused]] = 0b10,
+			IO [[maybe_unused]] = 0b11
 		}mode_t;
 
 		/**
@@ -58,10 +58,10 @@ namespace clava
 		 */
 		typedef enum speed
 		{
-			LOWEST = 0b00,
-			LOW = 0b01,
-			HIGH = 0b10,
-			HIGHEST = 0b11
+			LOWEST [[maybe_unused]] = 0b00,
+			LOW [[maybe_unused]] = 0b01,
+			HIGH [[maybe_unused]] = 0b10,
+			HIGHEST [[maybe_unused]] = 0b11
 		}speed_t;
 
 		/**
@@ -70,8 +70,8 @@ namespace clava
 		 */
 		typedef enum otype
 		{
-			PUSH_PULL = false,
-			OPEN_SINK = true,
+			PUSH_PULL [[maybe_unused]] = false,
+			OPEN_SINK [[maybe_unused]] = true,
 		}otype_t;
 
 		/**
@@ -106,45 +106,45 @@ namespace clava
          * @brief internally pull the pin up
          * 
          */
-        void pull_up();
+        [[maybe_unused]] void pull_up();
         /**
          * @brief internally pull the pin down
          * 
          */
-        void pull_down();
+        [[maybe_unused]] void pull_down();
         /**
          * @brief leave the pin floating
          * 
          */
-        void make_float();
+        [[maybe_unused]] void make_float();
 
         /**
          * @brief read the value on the pin
          * @return bool
          */
-        bool read();
+        [[maybe_unused]] bool read();
         /**
          * @brief write value to the pin
          * @param val the value to be written in
          */
-        void write(bool val);
+        [[maybe_unused]] void write(bool val);
 
         /**
          * @brief set the pin to 1
          * 
          */
-        void set();
+        [[maybe_unused]] void set();
         /**
          * @brief reset the pin to 0
          * 
          */
-        void reset();
+        [[maybe_unused]] void reset();
 
         /**
          * @brief lock the attributes of the pin
          * 
          */
-        void lock();
+        [[maybe_unused]] void lock();
     };
     /**
      * @brief hardware-specific I/O abstraction
@@ -161,8 +161,8 @@ namespace clava
         w_reg<uint16_t> odr; // output
         w_reg<uint16_t> bsr; // set
         rw_reg<uint32_t> lckr; // lock
-        rw_reg<uint32_t> afrl; // alternative
-        rw_reg<uint32_t> afrh; // alternative
+	    [[maybe_unused]] rw_reg<uint32_t> afrl; // alternative
+	    [[maybe_unused]] rw_reg<uint32_t> afrh; // alternative
         w_reg<uint16_t> brr; // reset
     public:
         explicit io_base(uintptr_t base);
@@ -172,42 +172,42 @@ namespace clava
          * @param pin the sequence of the pin
          * @param val the mode to be written in
          */
-        void set_mode(pin_t pin, io_attr::mode_t val);
+        [[maybe_unused]] void set_mode(pin_t pin, io_attr::mode_t val);
         /**
          * @brief get the mode of the pin
          * 
          * @param pin the sequence of the pin
          * @return enum io_attr::mode 
          */
-		io_attr::mode_t get_mode(pin_t pin);
+        [[maybe_unused]] io_attr::mode_t get_mode(pin_t pin);
         /**
          * @brief set the output type of the pin
          * 
          * @param pin the sequence of the pin
          * @param val the output type to be written in
          */
-        void set_otype(pin_t pin, io_attr::otype_t val);
+        [[maybe_unused]] void set_otype(pin_t pin, io_attr::otype_t val);
         /**
          * @brief get the output type of the pin
          * 
          * @param pin the sequence of the pin
          * @return enum io_attr::otype 
          */
-        io_attr::otype_t get_otype(pin_t pin);
+        [[maybe_unused]] io_attr::otype_t get_otype(pin_t pin);
         /**
          * @brief set the speed of the pin
          * 
          * @param pin the sequence of the pin
          * @param val the speed to be written in
          */
-        void set_speed(pin_t pin, io_attr::speed_t val);
+        [[maybe_unused]] void set_speed(pin_t pin, io_attr::speed_t val);
         /**
          * @brief get the speed of the pin
          * 
          * @param pin the sequence of the pin
          * @return enum io_attr::speed 
          */
-		io_attr::speed_t get_speed(pin_t pin);
+        [[maybe_unused]] io_attr::speed_t get_speed(pin_t pin);
 
         /**
          * @brief set the internally PU/PD
@@ -222,7 +222,7 @@ namespace clava
          * @param pin the sequence of the pin
          * @return enum io_attr::pupd 
          */
-		io_attr::pupd_t get_pupd(pin_t pin);
+        [[maybe_unused]] io_attr::pupd_t get_pupd(pin_t pin);
         /**
          * @brief set the pin to 1
          * 
@@ -249,7 +249,7 @@ namespace clava
          * the value of this port bit can no longer be modified until 
          * the next MCU reset or peripheral reset. - RM0444 Rev.5 p. 244
          */
-        void lockdown();
+        [[maybe_unused]] void lockdown();
         /**
          * @brief read the value on the pin
          * 
@@ -279,7 +279,7 @@ namespace clava
          */
         std::array<io_pin, pin_in_group> list;
     public:
-        explicit io_group(uintptr_t base);
+	    [[maybe_unused]] explicit io_group(uintptr_t base);
         /**
          * @brief get a specific pin in the group
          * 
