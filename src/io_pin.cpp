@@ -25,15 +25,15 @@ io_pin::io_pin() : group(nullptr), id(std::numeric_limits<decltype(id)>::max()) 
 
 void io_pin::pull_up()
 {
-    this->group->set_pupd(this->id, io_pin::pupd::PU);
+    this->group->set_pupd(this->id, io_attr::pupd_t::PU);
 }
 void io_pin::pull_down()
 {
-    this->group->set_pupd(this->id, io_pin::pupd::PD);
+    this->group->set_pupd(this->id, io_attr::pupd_t::PD);
 }
 void io_pin::make_float()
 {
-    this->group->set_pupd(this->id, io_pin::pupd::NONE);
+    this->group->set_pupd(this->id, io_attr::pupd_t::NONE);
 }
 bool io_pin::read()
 {

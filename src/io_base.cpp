@@ -40,42 +40,42 @@ void io_base::set_mode(pin_t pin, io_attr::mode_t val)
         static_cast<decltype(lckr)::value_type>(val) << pin*2
         );
 }
-enum io_pin::mode io_base::get_mode(pin_t pin)
+io_attr::mode_t io_base::get_mode(pin_t pin)
 {
-    return static_cast<enum io_pin::mode>((this->moder.read() >> pin*2) & 0b1);
+    return static_cast<io_attr::mode_t>((this->moder.read() >> pin*2) & 0b1);
 }
-void io_base::set_otype(pin_t pin, enum io_pin::otype val)
+void io_base::set_otype(pin_t pin, io_attr::otype_t val)
 {
     this->otyper.cover(
         static_cast<decltype(lckr)::value_type>(0b1) << pin, 
         static_cast<decltype(lckr)::value_type>(val) << pin
         );
 }
-enum io_pin::otype io_base::get_otype(pin_t pin)
+io_attr::otype_t io_base::get_otype(pin_t pin)
 {
-    return static_cast<enum io_pin::otype>((this->otyper.read() >> pin) & 0b11);
+    return static_cast<io_attr::otype_t>((this->otyper.read() >> pin) & 0b11);
 }
-void io_base::set_speed(pin_t pin, enum io_pin::speed val)
+void io_base::set_speed(pin_t pin, io_attr::speed_t val)
 {
     this->speedr.cover(
         static_cast<decltype(lckr)::value_type>(0b11) << pin*2, 
         static_cast<decltype(lckr)::value_type>(val) << pin*2
         );
 }
-enum io_pin::speed io_base::get_speed(pin_t pin)
+io_attr::speed_t io_base::get_speed(pin_t pin)
 {
-    return static_cast<enum io_pin::speed>((this->speedr.read() >> pin*2) & 0b11);
+    return static_cast<io_attr::speed_t>((this->speedr.read() >> pin*2) & 0b11);
 }
-void io_base::set_pupd(pin_t pin, enum io_pin::pupd val)
+void io_base::set_pupd(pin_t pin, io_attr::pupd_t val)
 {
     this->pupdr.cover(
         static_cast<decltype(lckr)::value_type>(0b11) << pin*2, 
         static_cast<decltype(lckr)::value_type>(val) << pin*2
         );
 }
-enum io_pin::pupd io_base::get_pupd(pin_t pin)
+io_attr::pupd_t io_base::get_pupd(pin_t pin)
 {
-    return static_cast<enum io_pin::pupd>((this->pupdr.read() >> pin*2) & 0b11);
+    return static_cast<io_attr::pupd_t>((this->pupdr.read() >> pin*2) & 0b11);
 }
 void io_base::set(pin_t pin)
 {
