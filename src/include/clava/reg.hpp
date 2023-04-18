@@ -67,7 +67,8 @@ namespace clava
      * 
      * @tparam _Type the type of the register
      */
-    template <typename _Type> class w_reg : public reg_base<_Type>, reg::writable {
+    template <typename _Type>
+    class w_reg : public reg_base<_Type>, reg::writable<_Type> {
     public:
         using reg_base<_Type>::reg_base;
         /**
@@ -85,7 +86,8 @@ namespace clava
      * 
      * @tparam _Type the type of the register
      */
-    template <typename _Type> class r_reg : public reg_base<_Type>, reg::readable {
+    template <typename _Type>
+    class r_reg : public reg_base<_Type>, reg::readable<_Type> {
     public:
         using reg_base<_Type>::reg_base;
         /**
@@ -113,7 +115,9 @@ namespace clava
      * @tparam _Type the type of the register
      */
     template <typename _Type>
-    class rw_reg : public reg_base<_Type>, reg::writable, reg::readable {
+    class rw_reg : public reg_base<_Type>,
+                   reg::writable<_Type>,
+                   reg::readable<_Type> {
     public:
         using reg_base<_Type>::reg_base;
         /**
