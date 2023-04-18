@@ -28,11 +28,10 @@ namespace clava
      * 
      * @tparam _Type the type of the register
      */
-    template<typename _Type>
-    class reg_base
-    {
+    template <typename _Type> class reg_base {
     private:
         _Type* base;
+
     public:
         using value_type = _Type;
         /**
@@ -59,9 +58,7 @@ namespace clava
      * 
      * @tparam _Type the type of the register
      */
-    template<typename _Type>
-    class w_reg : public reg_base<_Type>
-    {
+    template <typename _Type> class w_reg : public reg_base<_Type> {
     public:
         using reg_base<_Type>::reg_base;
         /**
@@ -79,9 +76,7 @@ namespace clava
      * 
      * @tparam _Type the type of the register
      */
-    template<typename _Type>
-    class r_reg :  public reg_base<_Type>
-    {
+    template <typename _Type> class r_reg : public reg_base<_Type> {
     public:
         using reg_base<_Type>::reg_base;
         /**
@@ -108,9 +103,7 @@ namespace clava
      * 
      * @tparam _Type the type of the register
      */
-    template<typename _Type>
-    class rw_reg : public reg_base<_Type>
-    {
+    template <typename _Type> class rw_reg : public reg_base<_Type> {
     public:
         using reg_base<_Type>::reg_base;
         /**

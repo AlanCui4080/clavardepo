@@ -39,72 +39,60 @@ namespace clava
      * 
      */
     typedef uint16_t pin_t;
-    
 
-	namespace io_attr
-	{
-		/**
+    namespace io_attr
+    {
+        /**
 		 * @brief mode of I/O pins
 		 *
 		 */
-		typedef enum mode
-		{
-			IN [[maybe_unused]] = 0b00,
-			OUT [[maybe_unused]] = 0b01,
-			AF [[maybe_unused]] = 0b10,
-			IO [[maybe_unused]] = 0b11
-		}mode_t;
+        typedef enum mode {
+            IN [[maybe_unused]]  = 0b00,
+            OUT [[maybe_unused]] = 0b01,
+            AF [[maybe_unused]]  = 0b10,
+            IO [[maybe_unused]]  = 0b11
+        } mode_t;
 
-		/**
+        /**
 		 * @brief output speed of I/O pins
 		 * @note refer to the device datasheet for the frequency specifications and the power supply
 		 * and load conditions for each speed - RM0444 Rev.5 p. 242
 		 * @warning the FT_c GPIOs cannot be set to high speed - RM0444 Rev.5 p. 242
 		 */
-		typedef enum speed
-		{
-			LOWEST [[maybe_unused]] = 0b00,
-			LOW [[maybe_unused]] = 0b01,
-			HIGH [[maybe_unused]] = 0b10,
-			HIGHEST [[maybe_unused]] = 0b11
-		}speed_t;
+        typedef enum speed {
+            LOWEST [[maybe_unused]]  = 0b00,
+            LOW [[maybe_unused]]     = 0b01,
+            HIGH [[maybe_unused]]    = 0b10,
+            HIGHEST [[maybe_unused]] = 0b11
+        } speed_t;
 
-		/**
+        /**
 		 * @brief output type of I/O pins
 		 *
 		 */
-		typedef enum otype
-		{
-			PUSH_PULL [[maybe_unused]] = false,
-			OPEN_SINK [[maybe_unused]] = true,
-		}otype_t;
+        typedef enum otype {
+            PUSH_PULL [[maybe_unused]] = false,
+            OPEN_SINK [[maybe_unused]] = true,
+        } otype_t;
 
-		/**
+        /**
 		 * @brief internal pull-up/pull-down of I/O pins
 		 *
 		 */
-		 typedef enum pupd
-		 {
-			 NONE = 0b00,
-			 PU = 0b01,
-			 PD = 0b10
-		 }pupd_t;
-	}
+        typedef enum pupd { NONE = 0b00, PU = 0b01, PD = 0b10 } pupd_t;
+    }
 
     class io_group;
     /**
      * @brief an I/O pin
      * 
      */
-    class io_pin
-    {
+    class io_pin {
     private:
         io_group* group; // the refrence of the group which this pin belongs to
-        pin_t id; // the sequence of this pin in its group
+        pin_t     id; // the sequence of this pin in its group
         friend class io_group; //give io_group access to "group"
     public:
-
-
         io_pin();
 
         /**
@@ -155,20 +143,19 @@ namespace clava
      * @brief hardware-specific I/O abstraction
      * 
      */
-    class io_base
-    {
+    class io_base {
     private:
-        rw_reg<uint32_t> moder; // pin mode
-        rw_reg<uint32_t> otyper; // output type
-        rw_reg<uint32_t> speedr; // output speed
-        rw_reg<uint32_t> pupdr; // internal pull-up/pull-down
-        r_reg<uint16_t> idr; // input
-        w_reg<uint16_t> odr; // output
-        w_reg<uint16_t> bsr; // set
-        rw_reg<uint32_t> lckr; // lock
-	    [[maybe_unused]] rw_reg<uint32_t> afrl; // alternative
-	    [[maybe_unused]] rw_reg<uint32_t> afrh; // alternative
-        w_reg<uint16_t> brr; // reset
+        rw_reg<uint32_t>                  moder; // pin mode
+        rw_reg<uint32_t>                  otyper; // output type
+        rw_reg<uint32_t>                  speedr; // output speed
+        rw_reg<uint32_t>                  pupdr; // internal pull-up/pull-down
+        r_reg<uint16_t>                   idr; // input
+        w_reg<uint16_t>                   odr; // output
+        w_reg<uint16_t>                   bsr; // set
+        rw_reg<uint32_t>                  lckr; // lock
+        [[maybe_unused]] rw_reg<uint32_t> afrl; // alternative
+        [[maybe_unused]] rw_reg<uint32_t> afrh; // alternative
+        w_reg<uint16_t>                   brr; // reset
     public:
         explicit io_base(uintptr_t base);
         /**
@@ -269,22 +256,21 @@ namespace clava
          * @param val the value to be written in
          */
         void write(pin_t pin, bool val);
-
     };
     /**
      * @brief fuction management I/O group
      * 
      */
-    class io_group : public io_base
-    {
+    class io_group : public io_base {
     private:
         /**
          * @brief refrence to all the pins in the group
          * 
          */
         std::array<io_pin, pin_in_group> list;
+
     public:
-	    [[maybe_unused]] explicit io_group(uintptr_t base);
+        [[maybe_unused]] explicit io_group(uintptr_t base);
         /**
          * @brief get a specific pin in the group
          * 

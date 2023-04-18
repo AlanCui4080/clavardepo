@@ -26,7 +26,11 @@
 
 using namespace clava;
 
-io_pin::io_pin() : group(nullptr), id(std::numeric_limits<decltype(id)>::max()) {}
+io_pin::io_pin()
+    : group(nullptr)
+    , id(std::numeric_limits<decltype(id)>::max())
+{
+}
 
 [[maybe_unused]] void io_pin::pull_up()
 {

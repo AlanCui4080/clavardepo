@@ -31,10 +31,10 @@ io_pin& io_group::operator[](pin_t pin)
     return list[pin];
 }
 
-[[maybe_unused]] io_group::io_group(uintptr_t base) : io_base(base)
+[[maybe_unused]] io_group::io_group(uintptr_t base)
+    : io_base(base)
 {
-    for (auto& it : list)
-    {
+    for (auto& it : list) {
         it.group = this;
     }
 }
