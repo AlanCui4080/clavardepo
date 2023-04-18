@@ -20,8 +20,11 @@
 
 /* SPDX-License-Identifier: AGPL-3.0-or-later */
 
+#include <gpio.hpp>
+
 [[noreturn]] void _clava_init()
 {
+    clava::GPIOA[5].set();
     while (true)
         ;
 }
