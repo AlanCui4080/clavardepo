@@ -53,12 +53,21 @@ namespace clava
             return this->base;
         }
     };
+    namespace reg
+    {
+        template <typename _Type> struct writable {
+            virtual void write(_Type val) = 0;
+        };
+        template <typename _Type> struct readable {
+            virtual _Type read() = 0;
+        };
+    }
     /**
      * @brief a writable register
      * 
      * @tparam _Type the type of the register
      */
-    template <typename _Type> class w_reg : public reg_base<_Type> {
+    template <typename _Type> class w_reg : public reg_base<_Type>, writable {
     public:
         using reg_base<_Type>::reg_base;
         /**
@@ -76,7 +85,7 @@ namespace clava
      * 
      * @tparam _Type the type of the register
      */
-    template <typename _Type> class r_reg : public reg_base<_Type> {
+    template <typename _Type> class r_reg : public reg_base<_Type>, readable {
     public:
         using reg_base<_Type>::reg_base;
         /**
@@ -103,7 +112,8 @@ namespace clava
      * 
      * @tparam _Type the type of the register
      */
-    template <typename _Type> class rw_reg : public reg_base<_Type> {
+    template <typename _Type>
+    class rw_reg : public reg_base<_Type>, writable, readable {
     public:
         using reg_base<_Type>::reg_base;
         /**
