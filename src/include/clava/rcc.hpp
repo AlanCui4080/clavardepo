@@ -36,14 +36,14 @@ namespace clava
     namespace clock
     {
 
-        template <class _Clk = void> struct converter : public _Clk {
+        template <class _Clk> struct converter : public _Clk {
         };
-        template <class _Clk = void> struct source : public _Clk {
+        template <class _Clk> struct source : public _Clk {
         };
-        template <class _Clk = void> struct sink : public _Clk {
+        template <class _Clk> struct sink : public _Clk {
         };
 
-        struct SYSCLK : source<> {};
+        struct SYSCLK {};
 
         template <class _Reg, class _From>
         class converter_helper : converter<_From> {
