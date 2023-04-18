@@ -28,4 +28,6 @@ namespace clava
     };
     template <class... T>
     constexpr auto always_false_v = always_false<T...>::value;
+
+    using index2_t = int;
 }
