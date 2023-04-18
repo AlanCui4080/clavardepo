@@ -48,7 +48,7 @@ namespace clava
         template <class _Reg, class _From>
         class converter_helper : converter<_From> {
         private:
-            using reg_type = decltype(_Reg)::value_type;
+            using reg_type = _Reg::value_type;
             _Reg&    reg;
             reg_type msk;
             reg_type low_bit;
@@ -58,10 +58,10 @@ namespace clava
             reg_type before;
 
         public:
-            converter_helper(index2_t idx, _Reg& cfg, reg_type mask,
+            converter_helper(index2_t index, _Reg& cfg, reg_type mask,
                              reg_type highest_bit, reg_type lowest_bit)
                 : reg(cfg)
-                , idx(idx)
+                , idx(index)
                 , msk(mask)
                 , high_bit(highest_bit)
                 , low_bit(lowest_bit)
@@ -81,7 +81,7 @@ namespace clava
 
         template <class _Reg, class _Clk> class sink_helper : sink<_Clk> {
         private:
-            using reg_type = decltype(_Reg)::value_type;
+            using reg_type = _Reg::value_type;
             _Reg&    reg;
             reg_type bit;
 
@@ -101,9 +101,9 @@ namespace clava
         };
 #define clava_clock_converter(name, from, to, reg, mask, highest_bit, \
                               lowest_bit)                             \
-    class name : public converter_helper<decltype(reg), from> {};     \
-    struct to : source<name> {}
+    class name : public ::clava::clock::converter_helper<decltype(reg), from> {};     \
+    struct to : ::clava::clock::source<name> {}
 #define clava_clock_sink(name, clk, reg, bit) \
-    class name : public sink_helper<decltype(reg), clk>
+    class name : public ::clava::clock::sink_helper<decltype(reg), clk>{}
     }
 }
