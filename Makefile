@@ -14,7 +14,7 @@ export INC = /include
 
 export ROOT = ./src
 clava :
-	$(MAKE) -C src
+	@$(MAKE) -C src
 clean:
 	find . -name "*.o" | xargs rm -f
 	find . -name "*.a" | xargs rm -f
