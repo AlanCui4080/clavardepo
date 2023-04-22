@@ -8,6 +8,7 @@
 *.obj
 *.bin
 *.hex
+*.dump
 
 # Precompiled Headers
 *.gch

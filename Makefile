@@ -21,6 +21,7 @@ clean:
 	find . -name "*.bin" | xargs rm -f
 	find . -name "*.hex" | xargs rm -f
 	find . -name "*.out" | xargs rm -f
+	find . -name "*.dump" | xargs rm -f
 debug: clava
 	openocd -f etc/openocd.cfg
 gdb:
