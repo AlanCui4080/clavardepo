@@ -23,8 +23,13 @@
 #include <gpio.hpp>
 
 [[noreturn]] void _clava_init()
-{
-    clava::GPIOA[5].set();
+{      
+    clava::gpio A(clava::GPIOA);
+    A.set_mode(5,clava::io_attr::OUT);
+    A.set_speed(5,clava::io_attr::HIGH);
+    A.set_otype(5,clava::io_attr::PUSH_PULL);
+    A.set_pupd(5,clava::io_attr::NONE);
+    A.set(5);
     while (true)
         ;
 }
