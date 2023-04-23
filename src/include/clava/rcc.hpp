@@ -78,32 +78,41 @@ namespace clava
                 this->reg.cover(this->msk, this->before);
             }
         };
-
-        template <class _Reg, class _Clk> class sink_helper : sink<_Clk> {
-        private:
-            using reg_type = _Reg::value_type;
-            _Reg&    reg;
-            reg_type bit;
-
-        public:
-            sink_helper(_Reg& cfg, reg_type bit_pos)
-                : reg(cfg)
-                , bit(bit_pos)
-            {
-                reg_type to_write = 0b1 << this->bit;
-                this->reg.cover(to_write, to_write);
-            };
-            ~sink_helper()
-            {
-                reg_type to_write = 0b1 << this->bit;
-                this->reg.cover(to_write, 0);
-            };
-        };
-#define clava_clock_converter(name, from, to, reg, mask, highest_bit, \
-                              lowest_bit)                             \
-    class name : public ::clava::clock::converter_helper<decltype(reg), from> {};     \
+#define clava_clock_converter(name, from, to, reg, mask, highest_bit,      \
+                              lowest_bit)                                  \
+    class name                                                             \
+        : public ::clava::clock::converter_helper<decltype(reg), from> {}; \
     struct to : ::clava::clock::source<name> {}
-#define clava_clock_sink(name, clk, reg, bit) \
-    class name : public ::clava::clock::sink_helper<decltype(reg), clk>{}
+
     }
+    typedef struct {
+        uintptr_t base;
+        uint32_t  bit;
+    } clock_sink_config_t;
+
+    class clock_sink {
+    private:
+        rw_reg<uint32_t> reg;
+        uint32_t         bit;
+
+    public:
+        clock_sink(const clock_sink_config_t& cfg)
+            : reg(cfg.base)
+            , bit(cfg.bit)
+        {
+            uint32_t to_write = 0b1 << this->bit;
+            uint32_t tmp_seq;
+            this->reg.cover(to_write, to_write);
+            tmp_seq = this->reg.read();
+            (void)tmp_seq;
+        };
+        ~clock_sink()
+        {
+            uint32_t to_write = 0b1 << this->bit;
+            uint32_t tmp_seq;
+            this->reg.cover(to_write, 0);
+            tmp_seq = this->reg.read();
+            (void)tmp_seq;
+        };
+    };
 }
