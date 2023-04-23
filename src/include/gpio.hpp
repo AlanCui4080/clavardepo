@@ -29,22 +29,18 @@
 namespace clava
 {
     typedef struct {
-        uintptr_t base;
-
-        rw_reg<uint32_t>& clock_reg;
-        uint32_t          clock_bit;
+        uintptr_t           base;
+        clock_sink_config_t clock;
     } gpio_config_t;
 
-    template <gpio_config_t _Cfg> class gpio : public io_group {
-        clava_clock_sink(CLK,clock::SYSCLK,_Cfg.clock_reg,_Cfg.clock_bit);
+    class gpio : public io_group, public clock_sink {
     public:
-        gpio()
-            : io_group(_Cfg.base)
+        gpio(const gpio_config_t& cfg)
+            : io_group(cfg.base)
+            , clock_sink(cfg.clock)
         {
         }
     };
 
-    rw_reg<uint32_t> RCC_IOPENR(0x40021000 + 0x34);
-
-    gpio<gpio_config_t{0x50000000,RCC_IOPENR,0}> GPIOA;
+    constexpr gpio_config_t GPIOA{ 0x50000000, { 0x40021000 + 0x34, 0 } };
 }
