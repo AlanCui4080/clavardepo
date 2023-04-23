@@ -30,7 +30,7 @@ namespace clava
      */
     template <typename _Type> class reg_base {
     private:
-        _Type* base;
+        volatile _Type* base;
 
     public:
         using value_type = _Type;
@@ -41,34 +41,25 @@ namespace clava
          */
         explicit reg_base(uintptr_t ptr)
         {
-            base = reinterpret_cast<_Type*>(ptr);
+            base = reinterpret_cast<volatile _Type*>(ptr);
         }
         /**
          * @brief get the base of the register
          * 
          * @return _Type& 
          */
-        _Type* get_base()
+        volatile _Type* get_base()
         {
             return this->base;
         }
     };
-    namespace reg
-    {
-        template <typename _Type> struct writable {
-            virtual void write(_Type val) = 0;
-        };
-        template <typename _Type> struct readable {
-            virtual _Type read() = 0;
-        };
-    }
     /**
      * @brief a writable register
      * 
      * @tparam _Type the type of the register
      */
     template <typename _Type>
-    class w_reg : public reg_base<_Type>, reg::writable<_Type> {
+    class w_reg : public reg_base<_Type> {
     public:
         using reg_base<_Type>::reg_base;
         /**
@@ -87,7 +78,7 @@ namespace clava
      * @tparam _Type the type of the register
      */
     template <typename _Type>
-    class r_reg : public reg_base<_Type>, reg::readable<_Type> {
+    class r_reg : public reg_base<_Type> {
     public:
         using reg_base<_Type>::reg_base;
         /**
@@ -115,9 +106,7 @@ namespace clava
      * @tparam _Type the type of the register
      */
     template <typename _Type>
-    class rw_reg : public reg_base<_Type>,
-                   reg::writable<_Type>,
-                   reg::readable<_Type> {
+    class rw_reg : public reg_base<_Type> {
     public:
         using reg_base<_Type>::reg_base;
         /**
